@@ -1,9 +1,47 @@
 <html>
     <head>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script src="fonts/OpenSans-Regular-normal.js" type = "module"></script>
     </head>
-
     <body>
-        <script type="text\javascript" src="PDFGeneration.js"></script>
+        <script type = "text/javascript">
+            function ExportTable()
+            {
+                const OpenSans_base64 = window.OpenSans_base64;
+                var { jsPDF } = window.jspdf;
+                var doc = new jsPDF("l");
+                
+                doc.SetFont('OpenSans-Regular');
+                doc.SetFontType("normal");
+                var source = window.document.getElementById("marksTable");
+                doc.html(source, 
+                { 
+                    callback: function(doc) 
+                    {
+                        doc.save("a4.pdf");
+                    } 
+                });
+            }
+        </script>
+        <button onClick=ExportTable()>Экспортировать выписку оценок</button>
+
+        <div id="marksTable">
+            <table border="1">
+                <tr>
+                    <th colspan="2">Имя</th>
+                </tr>
+
+                <tr>
+                    <th colspan="2">Группа</th>
+                </tr>
+
+                <tr>
+                    <th>Предмет</th>
+                    <td>Оценка</td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>
